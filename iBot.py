@@ -29,9 +29,10 @@ async def on_ready():
 async def on_connect():
     print('{0.user.name}'.format(client) + " just hop on!")
     for guilds in client.guilds:
-        print(guilds)
+        print('Guild:' + (str)(guilds))
         for channels in guilds.channels:
-            print('Name: ' + channels.name) 
+            if((str)(channels.name) == 'general'):
+                await guilds.get_channel(channels.id).send('{0.user.name} is online!'.format(client))
 
 @client.event
 async def on_disconnect():
@@ -52,7 +53,7 @@ async def on_message(message):
         return
     if message.content.startswith('&hello'):
         await message.channel.send('Hello ' + message.author.mention + '!')
-oken = (data["myBot"])[0]["token"]
+token = (data["myBot"])[0]["token"]
 print(token)
 print(os.getcwd())
 client.run(token)
