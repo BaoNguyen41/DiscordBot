@@ -14,7 +14,6 @@ data = json.load(f)
 print(data)
 print(type(data))
 for detail in data['myBot']:
-    print('hello world')
     print(detail) 
 f.close()   
 
@@ -34,26 +33,26 @@ async def on_connect():
         for channels in guilds.channels:
             print('Name: ' + channels.name) 
 
-
+@client.event
 async def on_disconnect():
     print('{0.user}'.format(client) + " is shutting down")
 
 @client.event
 async def on_member_join(member):
     print(member.name + ' just slide through the server!')
+
+@client.event
 async def on_member_remove(member):
     print(member.name + ' just quit the server!')
+
 @client.event
 async def on_message(message):
     
     if message.author == client.user:
         return
-    for message in client.guilds:
-        await message.channel.send('^')
     if message.content.startswith('&hello'):
         await message.channel.send('Hello ' + message.author.mention + '!')
-#data is a dict, data["myBot"] give a list of dict, (data["myBot"])[0] give the dict "token", (data["myBot"])[0]["token"] get the value of token
-token = (data["myBot"])[0]["token"]
+oken = (data["myBot"])[0]["token"]
 print(token)
 print(os.getcwd())
 client.run(token)
