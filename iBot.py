@@ -53,6 +53,10 @@ async def on_message(message):
         return
     if message.content.startswith('&hello'):
         await message.channel.send('Hello ' + message.author.mention + '!')
+    if message.content.startswith('shutdown@'):
+        print('ibot shutdown')
+        await client.close()
+
 token = (data["myBot"])[0]["token"]
 print(token)
 print(os.getcwd())
