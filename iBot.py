@@ -4,6 +4,20 @@ import discord
 import random
 from discord.utils import get
 
+import json
+import os  
+src_file_path = os.path.dirname(__file__)
+
+print(os.getcwd())
+f = open(src_file_path + '/iBot.json')
+data = json.load(f)
+print(data)
+print(type(data))
+for detail in data['myBot']:
+    print('hello world')
+    print(detail) 
+f.close()   
+
 intents = discord.Intents.default()
 intents.message_content = True
 client = discord.Client(intents=intents)
@@ -18,7 +32,7 @@ async def on_connect():
     for guilds in client.guilds:
         print(guilds)
         for channels in guilds.channels:
-            print('Name: ' + channels.name) #841780253038346291
+            print('Name: ' + channels.name) 
 
 
 async def on_disconnect():
@@ -34,12 +48,16 @@ async def on_message(message):
     
     if message.author == client.user:
         return
+    for message in client.guilds:
+        await message.channel.send('^')
     if message.content.startswith('&hello'):
-        #emoji = get(client.get_emojis(), name = ':smiling_imp:')
-        emojis = ':smiling_imp'
-        #await client.add_reaction(emojis)
         await message.channel.send('Hello ' + message.author.mention + '!')
+#data is a dict, data["myBot"] give a list of dict, (data["myBot"])[0] give the dict "token", (data["myBot"])[0]["token"] get the value of token
+token = (data["myBot"])[0]["token"]
+print(token)
+print(os.getcwd())
 client.run(token)
+
 
 
 
